@@ -1,0 +1,60 @@
+前五条和后五条的编码类型不同，导致在级联查询时出错更改方案：将表的编码类型统一，无法用语句更改类型，只能重建表CREATE TABLE `房主信息表` (  `房主姓名` char(18) NOT NULL,  `房主身份证号` char(18) NOT NULL,  `房主电话` char(11) NOT NULL,  `房屋编号` char(18) NOT NULL,  `房屋出租情况` bit(1) NOT NULL,  PRIMARY KEY (`房主身份证号`,`房屋编号`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `房主账户信息表` (  `房主身份证号` char(18) NOT NULL,  `交税日期` date NOT NULL,  `缴费金额` double NOT NULL,  `结余余额` double NOT NULL,  `账户编号` char(1) NOT NULL,  PRIMARY KEY (`账户编号`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `合同表` (  `房主身份证号` char(18) NOT NULL,  `租户身份证号` char(18) NOT NULL,  `合同编号` char(18) NOT NULL,  `房屋编号` char(18) NOT NULL,  PRIMARY KEY (`合同编号`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `求租人账户信息表` (  `求租人姓名` char(18) NOT NULL,  `求租人身份证号` char(18) NOT NULL,  `求租人电话` char(11) NOT NULL,  `地址` char(18) NOT NULL,  `租金` float NOT NULL,  PRIMARY KEY (`求租人身份证号`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `用户登录信息表` (  `用户名` char(9) NOT NULL,  `密码` char(9) NOT NULL,  `身份证号` char(18) NOT NULL,  PRIMARY KEY (`用户名`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `租户信息表` (  `租户姓名` char(18) NOT NULL,  `租户身份证号` char(18) NOT NULL,  `租户电话` char(11) NOT NULL,  `房屋编号` char(18) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8
+CREATE TABLE `出租屋历史查询表` (
+  `房屋编号` char(18) COLLATE cp932_bin NOT NULL,
+  `入住日期` date DEFAULT NULL,
+  `租户身份证号` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `离开日期` date DEFAULT NULL,
+  PRIMARY KEY (`房屋编号`)
+) ENGINE=InnoDB DEFAULT CHARSET=cp932 COLLATE=cp932_bin
+
+
+CREATE TABLE `房屋信息` (
+  `房屋编号` char(18) COLLATE cp932_bin NOT NULL,
+  `房主身份证号` char(18) COLLATE cp932_bin NOT NULL,
+  `租金` double NOT NULL,
+  `国家` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `省` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `市` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `县` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `乡` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `村` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `街道` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `小区` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `门牌号` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `街道号` char(18) COLLATE cp932_bin DEFAULT NULL,
+  `房屋出租情况` bit(1) NOT NULL,
+  PRIMARY KEY (`房屋编号`)
+) ENGINE=InnoDB DEFAULT CHARSET=cp932 COLLATE=cp932_bin
+
+CREATE TABLE `缴税表` (
+  `房屋编号` char(18) COLLATE cp932_bin NOT NULL,
+  `缴税日期` date NOT NULL,
+  `所缴税务` char(18) COLLATE cp932_bin NOT NULL,
+  PRIMARY KEY (`房屋编号`)
+) ENGINE=InnoDB DEFAULT CHARSET=cp932 COLLATE=cp932_bin
+
+
+CREATE TABLE `违规信息表` (
+  `房主身份证号` char(18) COLLATE cp932_bin NOT NULL,
+  `房屋编号` char(18) COLLATE cp932_bin NOT NULL,
+  `租户身份证号` char(18) COLLATE cp932_bin NOT NULL,
+  `合同编号` char(18) COLLATE cp932_bin NOT NULL,
+  `违规信息` char(100) COLLATE cp932_bin NOT NULL,
+  PRIMARY KEY (`房屋编号`,`租户身份证号`)
+) ENGINE=InnoDB DEFAULT CHARSET=cp932 COLLATE=cp932_bin
+
+CREATE TABLE `欠税表` (
+  `房主身份证号` char(18) COLLATE cp932_bin NOT NULL,
+  `日期` char(18) COLLATE cp932_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=cp932 COLLATE=cp932_bin
+
